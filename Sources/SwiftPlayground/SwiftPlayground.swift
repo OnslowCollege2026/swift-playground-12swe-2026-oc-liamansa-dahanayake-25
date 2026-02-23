@@ -2,47 +2,141 @@
 // https://docs.swift.org/swift-book
 
 
-func readNumber(prompt: String) -> Double {
-    print(prompt)
-    print("Enter the room Length:")
-            var roomLength = -1.0
-            guard let  userInput = readLine(), let roomLength = Double(userInput), number > 0 else { 
-                print("Invalid number. ")
-                return readNumber (prompt:prompt)
-            }
-            returnValue = number
-            return returnValue
-}
 
 @main
 struct SwiftPlayground {
     static func main() {
-            let maximumItemVolume = 2.0
 
-            let roomLength = readNumber(prompt: "Enter the room Length")
-            let roomWidth = readNumber(prompt: "Enter the room Length")
-            let roomHeight = readNumber(prompt: "Enter the room Length")
+var eggInStock = 0
+var eggsSold = 0
+let maxAmount = 1000
+let lowStock = 50
+
+func menuName() -> Int {
+    print("""
+    ==== Egg Shop ====
+    1. Add eggs
+    2. Sell eggs
+    3. Show current stock
+    4. Show total eggs sold
+    5. Exit
+    Choose an option:
+    """)
+
+guard let input = readLine(), let choice = Int(input) else {
+    print("Invalid input. Please enter a number.")
+    return 0
+    }
+    return choice
+}
 
 
-            let roomArea = roomLength * roomWidth
-            let roomVolume = roomArea * roomHeight
-        print("room are \(roomArea) m² ")
-        print("room are \(roomVolume) m³ ")
+func theQuantity() -> Int {
+    guard let input = readLine(), let amount = Int(input) else {
+        print("Invalid input. please enter a whole number.")
+        return nil
+    }
+    if amount < 1 {
+        print(" Quantity must be at least 1. Please try again.")
+        return nil
+    }
+}
 
-        let furnitureVolumes = [1.2, 0.8, 2.5, 0.6, 1.0]
-        var totalFurnitureVolume = 0.0
-        furnitureVolumes.enumerated().forEach { index, volume in 
-        print("Item \(index + 1 ): \(volume) m³")
-        if volume > maximumItemVolume {
-        print("Oversized item detected.")
-                    }
-                    totalFurnitureVolume = totalFurnitureVolume + volume
-                }
-                let usableVolume = roomVolume - totalFurnitureVolume
-                print("Usable volume \(usableVolume) m³")
-            }
+func addEggs(currentStock: Int, amount: Int) -> Int {
+    let newStock = currentStock + amount
+    if newStock > maxAmount {
+        print("Cannot exceed \(maxAmount) eggs inn stock.")
+    }
+    return newStock
+}
+
+
+
+func sellEggs(currentStock: Int, amount: Int) -> Int? {
+    if amount < currentStock {
+        print("Cannot sell more than eggs than are in stock.")
+    }
+    return currentStock - amount
+}
+
+//func updateSoldCount(currentSold: Int, amount: Int) -> Int {
+    //eturn currentSold + amount
+//}
+
+func stockMassage(stock: Int) -> String {
+    if stock == 0 {
+        return "Stock is empty. You have no eggs."
+    } else if stock < lowStock {
+        return "Current \(stock) eggs. Low in stock."
+    } else {
+        return "Current \(stock) eggs."
+    }
+}
+
+func eggsSold(totalSold: Int) -> String {
+    return "Total eggs sold today is \(totalSold)."
+}
+
+func resetShop() {
+    eggsInStock = 0
+    eggsSold = 0
+    print("Shop has been reset to a new day. The stock and the sold amount is reseted.")
+}
+
+
+
+
+var running = true
+
+while running {
+    let choice = menuName()
+
+
+switch choice {
+    case 1:
+    if let amount = theQuantity(prompt: "How many eggs would you like to add?") {
+        if let newStock = addEggs(currentStock: eggsInStock, amount: amount) {
+            eggInStock = newStock
+            print(stockMassage: eggsInStock)
         }
+    }
+
+
+    case 2:
+    if let amount = theQuantity(prompt: "how many eggs would you like to sell? ") {
+        if let newStock = sellEggs(currentStock: eggsInStock, amount: amount) {
+            eggInStock = newStock
+            eggsSold = updateSoldCount(current: eggsSold, amount: amount) 
+            print("Sale completed.")
+            print(stockMessage(stock: eggsInStock))
+            print(soldMessage(totalSold: eggsSold))
+        }
+    }
+
+
+    case 3:
+    print(stockMassage:(stock: eggsInStock))
+
+    case 4: 
+    print(soldMessage(totalSold: eggsSold))
+
+
+    case 5:
+    print("Exiting egg Shop. Goodbye!")
+    running = false
+
+    case 6:
+    resetShop()
+
+    case  0:
+    continue
+
+}
+}
 
 
 
 
+
+}
+    }
