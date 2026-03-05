@@ -7,11 +7,12 @@
 struct SwiftPlayground {
     static func main() {
 
-var eggInStock = 0
+var eggsInStock = 0
 var eggsSold = 0
 let maxAmount = 1000
 let lowStock = 50
 
+// Functions
 func menuName() -> Int {
     print("""
     ==== Egg Shop ====
@@ -30,8 +31,8 @@ guard let input = readLine(), let choice = Int(input) else {
     return choice
 }
 
-
-func theQuantity() -> Int {
+func theQuantity(prompt: String) -> Int? {
+    print(prompt)
     guard let input = readLine(), let amount = Int(input) else {
         print("Invalid input. please enter a whole number.")
         return nil
@@ -42,14 +43,13 @@ func theQuantity() -> Int {
     }
 }
 
-func addEggs(currentStock: Int, amount: Int) -> Int {
+func addEggs(currentStock: Int, amount: Int) -> Int? {
     let newStock = currentStock + amount
     if newStock > maxAmount {
         print("Cannot exceed \(maxAmount) eggs inn stock.")
     }
     return newStock
 }
-
 
 
 func sellEggs(currentStock: Int, amount: Int) -> Int? {
@@ -59,11 +59,11 @@ func sellEggs(currentStock: Int, amount: Int) -> Int? {
     return currentStock - amount
 }
 
-//func updateSoldCount(currentSold: Int, amount: Int) -> Int {
-    //eturn currentSold + amount
-//}
+func updateSoldCount(currentSold: Int, amount: Int) -> Int {
+    return currentSold + amount
+}
 
-func stockMassage(stock: Int) -> String {
+func stockMessage(stock: Int) -> String {
     if stock == 0 {
         return "Stock is empty. You have no eggs."
     } else if stock < lowStock {
@@ -73,7 +73,7 @@ func stockMassage(stock: Int) -> String {
     }
 }
 
-func eggsSold(totalSold: Int) -> String {
+func soldMessage(totalSold: Int) -> String {
     return "Total eggs sold today is \(totalSold)."
 }
 
@@ -85,7 +85,7 @@ func resetShop() {
 
 
 
-
+// Main loop.
 var running = true
 
 while running {
@@ -94,19 +94,19 @@ while running {
 
 switch choice {
     case 1:
-    if let amount = theQuantity(prompt: "How many eggs would you like to add?") {
+    if let amount = theQuantity(prompt:"How many eggs would you like to add?") {
         if let newStock = addEggs(currentStock: eggsInStock, amount: amount) {
-            eggInStock = newStock
-            print(stockMassage: eggsInStock)
+            eggsInStock = newStock
+            print(stockMessage(stock: eggsInStock))
         }
     }
 
 
     case 2:
-    if let amount = theQuantity(prompt: "how many eggs would you like to sell? ") {
+    if let amount = theQuantity(prompt:"how many eggs would you like to sell? ") {
         if let newStock = sellEggs(currentStock: eggsInStock, amount: amount) {
-            eggInStock = newStock
-            eggsSold = updateSoldCount(current: eggsSold, amount: amount) 
+            eggsInStock = newStock
+            eggsSold = updateSoldCount(currentSold: eggsSold, amount: amount) 
             print("Sale completed.")
             print(stockMessage(stock: eggsInStock))
             print(soldMessage(totalSold: eggsSold))
@@ -115,7 +115,7 @@ switch choice {
 
 
     case 3:
-    print(stockMassage:(stock: eggsInStock))
+    print(stockMessage(stock: eggsInStock))
 
     case 4: 
     print(soldMessage(totalSold: eggsSold))
@@ -131,7 +131,10 @@ switch choice {
     case  0:
     continue
 
-}
+    default:
+    print("Invalid menu option. Please choose 1-6.")
+
+    }
 }
 
 
