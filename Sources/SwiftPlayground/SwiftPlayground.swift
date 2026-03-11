@@ -54,10 +54,6 @@ struct SwiftPlayground {
 
 
 
-
-
-
-
         // First move: 0 in middle.
         board[1][1] = "O"
         print(board: board)
@@ -84,5 +80,11 @@ struct SwiftPlayground {
         // seventh move: X in bottom- middle
         board[0][1] = "X"
         print(board: board)
+
+
+
+
     }
 }
+
+
