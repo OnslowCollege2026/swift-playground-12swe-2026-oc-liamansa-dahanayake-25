@@ -2,11 +2,11 @@
 // https://docs.swift.org/swift-book
 
 
+import Foundation
 
 @main
 struct SwiftPlayground {
     static func main() {
-
 
 let kumaraPricePerKilo: Double = 0 
 let bagCost: Double = 0.20
@@ -21,6 +21,8 @@ var bagStock: Int = 5000
 var sales: [[Int]] = [[]]
 
 var option = 0
+
+
 
 func sale(weight: Int, bags: Int) {
     let kumaraCharge = Double(weight) * kumaraPricePerKilo
@@ -72,7 +74,7 @@ func ownerMenu() {
     5. Main menu 
     """)
 
-    guard let inpur = readLine(), let choice = Int(input) else {
+    guard let input = readLine(), let choice = Int(input) else {
         print("Invalid choice. Please try again.")
         return ownerMenu()
     }
@@ -93,8 +95,15 @@ func customerMenu() {
     guard let input = readLine(), let weight = Int(input) else {
         print("Invalid number of bags. Please try again.")
         return customerMenu()
+        }
+        print("Enter bag used")
+        guard let input = readLine(), let bags = Int(input) else {
+            print("Invalid number of bags. Please try again.")
+            return customerMenu()
     }
 }
+
+
 
 repeat {
     print("Welcome to Kumara shop!")
@@ -109,7 +118,7 @@ repeat {
 
     guard let input = readLine(), let choice = Int(input) else {
         print("Invalid input. Please enter an option.")
-        Exit(0)
+        exit(0)
     }
     option = choice
 
