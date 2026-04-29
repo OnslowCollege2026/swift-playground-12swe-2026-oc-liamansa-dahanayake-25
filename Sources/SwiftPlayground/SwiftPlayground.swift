@@ -59,7 +59,7 @@ func viewStock() {
 
 
 func salesRecords() {
-    print("Sakes records: ")
+    print("Sales records: ")
     for i in 0..<sales.count {
         print("Weight: \(sales[i][0]), Bags: \([i][1])")
     }
@@ -67,11 +67,12 @@ func salesRecords() {
 
 func ownerMenu() {
     print("""
-    1. Add stock
-    2. View remaining stocks
-    3. Previous sales records
-    4. Summery Information 
-    5. Main menu 
+    == Ownner menu ==
+        1. Add stock
+        2. View remaining stocks
+        3. Previous sales records
+        4. Summery Information 
+        5. Main menu 
     """)
 
     guard let input = readLine(), let choice = Int(input) else {
@@ -89,8 +90,10 @@ func ownerMenu() {
 
 func customerMenu() {
     print("""
-    customer Menu
-    Enter Weight
+    == customer Menu ==
+
+        Enter Weight:
+
     """)
     guard let input = readLine(), let weight = Int(input) else {
         print("Invalid number of bags. Please try again.")
@@ -109,10 +112,10 @@ repeat {
     print("Welcome to Kumara shop!")
 
     print("""
-    Main Menu
-    1.Owner
-    2.Customer 
-    3.Exit
+    == Main Menu == 
+        1.Owner
+        2.Customer 
+        3.Exit
     Choose an option:
     """)
 
