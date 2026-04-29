@@ -8,12 +8,12 @@ import Foundation
 struct SwiftPlayground {
     static func main() {
 
-let kumaraPricePerKilo: Double = 0 
+let kumaraPricePerKilo: Double = 3 
 let bagCost: Double = 0.20
 let maximumBags: Int = 5000
 let maximumKumaraWeight: Double = 0.1
 let maxWeightForBag: Int = 5 
-let maxStock: Int = 5
+let maxStock: Int = 50
 
 var kumaraStock: Int = 0
 var bagStock: Int = 5000
@@ -34,7 +34,7 @@ func sale(weight: Int, bags: Int) {
     print("Total charge: $ \(totalCharge)")
 
     print("Do you want to purchase? [Y/N]")
-    guard let input = readLine(), input == "Y" || input == "N" else {
+    guard let input = readLine(), input.uppercased() == "Y" || input.uppercased() == "N" else {
         print("Invalid Input")
         return sale(weight:weight, bags:bags)
     }
@@ -45,7 +45,7 @@ func sale(weight: Int, bags: Int) {
 
 func addStock() {
     print("Enter stock amount:")
-    guard let input = readLine(), let stock = Int(input), stock > 0 && stock < maxStock else {
+    guard let input = readLine(), let stock = Int(input), stock > 0 && stock <= maxStock else {
         print("Invlid stock amount.")
         return addStock()
     }
