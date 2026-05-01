@@ -2,12 +2,12 @@
 // https://docs.swift.org/swift-book
 
 
-import Foundation
 
 @main
 struct SwiftPlayground {
     static func main() {
 
+// Constants
 let kumaraPricePerKilo: Double = 3
 let bagCost: Double = 0.20
 let maximumBags: Int = 5000
@@ -15,13 +15,19 @@ let minimumKumaraWeight: Double = 0.1
 let maxWeightForBag: Int = 5
 let maxStock: Double = 50
 
-
+// Variables 
 var kumaraStock: Double = 0
 var bagStock: Int = 5000
 
+// Stores all completed sales as (weight in kg, number of bags) tuples.
 var sales: [(Double, Int)] = []
 
-
+// Calculates and displays the cost breakdown for a purchase.
+// Updates the stokc and records the sale if the customer comfirms.
+/// 
+/// - Parameters:
+///   - weight: The weight of kumara being purchased in kilograms.
+///   - bags: The number of bags requested.
 func sale(weight: Double, bags: Int) {
     let kumaraCharge = Double(weight) * kumaraPricePerKilo
     print("Kumara charge: $ \(kumaraCharge)")
@@ -30,7 +36,7 @@ func sale(weight: Double, bags: Int) {
 
     let totalCharge = kumaraCharge + bagCharge
     print("Total charge: $ \(totalCharge)")
-
+    // This prompt customer to comfirm or cancel purchase.
     print("Do you want to purchase? [Y/N]")
     guard let input = readLine(), input.uppercased() == "Y" || input.uppercased() == "N" else {
         print("Invalid Input")
@@ -41,12 +47,16 @@ func sale(weight: Double, bags: Int) {
     sales.append((weight, bags))
 }
 
+// Owner functions.
+/// Prompts the owner to add kumara stock, validating that the amount if 
+/// within acceptable bounds and doesn't exceed the maximum stock capacity.
 func addStock() {
     print("Enter stock amount:")
     guard let input = readLine(), let stock = Double(input), stock > 0 && stock <= maxStock else {
         print("Invlid stock, maximum stock amount should be 1 - 50 .")
         return addStock()
     }
+    // Check adding the new stock won't exceed the maximum capacity.
     if (kumaraStock + stock) <= maxStock {
         kumaraStock += stock
         print("Stock updated!. Current stock: \(kumaraStock)")
@@ -56,7 +66,8 @@ func addStock() {
     }
 }
 
-func viewStock() {
+// Displays all previously completed sale records, showing the weight and bags per transaction.
+func viewStocks() {
     print("Remaining stocks: \(kumaraStock)")
 }
 
@@ -72,25 +83,30 @@ func salesRecords() {
     }
 }
 
-
+/// Calculates and displayes a summery if all sales, including:
+/// - Average weight of kumara sold per bag.
+/// - Avarage earning per bag (excluding the bag charges).
 func calculateSummery() {
     var totalWeight: Double = 0
-    var totalBags = 0 
-    var totalPrice: Double = 0 
-
+    var totalBags = 0
+    var totalPrice: Double = 0
+    // Gathers totals across the records.
     for sale in sales {
-        totalWeight += sale.0 
-        totalBags += sale.1 
+        totalWeight += sale.0
+        totalBags += sale.1
         totalPrice += Double(sale.0) * kumaraPricePerKilo
     }
-}
     let averageWeightPerBag = totalWeight/Double(totalBags)
     let averageEariningPerBag = totalPrice/Double(totalBags)
     
     print("Average weight sold per bag: \(averageWeightPerBag)")
     print("Average amount earned per bag: \(averageEariningPerBag)")
+    }
 
+/// Displayes the owner menu in a loop, allowing the owner to manage stock, 
+/// view records, and access summeries until they choose to return the mainn menu.
 func ownerMenu() {
+    repeat {
     print("""
     == Ownner menu ==
         1. Add stock
@@ -124,36 +140,46 @@ func ownerMenu() {
     } while true
 }
 
+
+// Custmor functions 
+
+/// Guides the customer through a purchase by collecting their kumara weight
+/// and number if bags, validating both inputs before proceeding to the sale.
 func customerMenu() {
     print("""
-    == customer Menu ==
-
-        Enter Weight:
+    
+    == Customer Menu ==
+    
+        Enter weight:
     """)
-    guard let input = readLine(), let weight = Int(input) else {
-        print("Invalid number of bags. Please try again.")
+    
+    // Validate weight input is a valid number.
+    guard let input = readLine(), let weight = Double(input) else {
+        print("Invalid weight. Please try Again.")
         return customerMenu()
-        }
-        if weight < minimumKumaraWeight || weight > kumaraStock {
+    }
+    // Ensure weight is wintin the allowed purchage range.
+    if weight < minimumKumaraWeight || weight > kumaraStock {
         print("You can only buy kumara weight between \(minimumKumaraWeight) and \(kumaraStock).")
         return customerMenu()
-        }
-        print("Enter bag used")
-        guard let input = readLine(), let bags = Int(input) else {
-            print("Invalid number of bags. Please try again.")
-            return customerMenu()
-            if bags < 1 || bags > bagStock {
+    }
+    print(" Enter bag used: ")
+    // Validate bag count input is a valid interger.
+    guard let input = readLine(), let bags = Int(input) else {
+        print("Invalid number of bags. Please try agian.")
+        return customerMenu()
+    }
+    // Ensure bag count is within the available stock range.
+    if bags < 1 || bags > bagStock {
         print("Number of bags has to be between one and \(bagStock).")
         return customerMenu()
     }
     sale(weight:weight, bags:bags)
 }
-    }
-}
 
-
+// main menu
 repeat {
-    print("Welcome to Kumara Shop!")
+    print(" ==== Welcome to Kumara Shop! ====")
     
     print("""
         == Main Menu ==
@@ -177,9 +203,12 @@ repeat {
     } else if choice == 1 {
         ownerMenu()
     } else if choice == 3 {
-        break // Exit the program.
+        break // Exits the program.
     } else {
         print("Invalid option. Please try again.")
     }
-    
 } while true
+
+
+    }
+}
