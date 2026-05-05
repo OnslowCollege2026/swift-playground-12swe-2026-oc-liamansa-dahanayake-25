@@ -154,8 +154,8 @@ print(" Enter bag used: ")
     } else if bags > bagStock { // Ensure number of bags does not exceed available bags in stock.
         print("Not enough bags in stock. Only \(bagStock) bags available")
         return getBags(weight:weight)
-    } else if (weight/Double(bags)) > Double(maxWeightForBag) { // Ensure a bag does not contain more than 5kg of Kumara
-        print("A bag cannot have more than \(maxWeightForBag)kg. You need \(Int((weight/Double(maxWeightForBag)).rounded(.up))) bags.")
+    } else if (weight/Double(bags)) > Double(maxWeightForBag) { // Ensure a bag does not contain more than 5kg of Kumara.
+        print("A bag cannot have more than \(maxWeightForBag)kg.")
         return getBags(weight:weight)
     }
     return bags;
