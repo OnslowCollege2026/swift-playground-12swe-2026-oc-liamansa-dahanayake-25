@@ -22,6 +22,7 @@ var bagStock: Int = 5000
 // Stores all completed sales as (weight in kg, number of bags) tuples.
 var sales: [(Double, Int)] = []
 
+
 // Calculates and displays the cost breakdown for a purchase.
 // Updates the stokc and records the sale if the customer comfirms.
 /// 
@@ -99,7 +100,7 @@ func calculateSummery() {
     let averageWeightPerBag = totalWeight/Double(totalBags)
     let averageEariningPerBag = totalPrice/Double(totalBags)
     
-    print("Average weight sold per bag: \(averageWeightPerBag) kg.")
+    print("Average weight sold per bag: \(averageWeightPerBag)")
     print("Average amount earned per bag: \(averageEariningPerBag)")
     }
 
