@@ -37,9 +37,9 @@ func sale(weight: Double, bags: Int) {
     let totalCharge = kumaraCharge + bagCharge
     print("Total charge: $ \(totalCharge)")
     // This prompt customer to comfirm or cancel purchase.
-    print("Do you want to purchase? [Y/N]")
+    print("Do you want to purchase? [Y/N].")
     guard let input = readLine(), input.uppercased() == "Y" || input.uppercased() == "N" else {
-        print("Invalid Input")
+        print("Invalid Input.")
         return sale(weight:weight, bags:bags)
     }
     kumaraStock = kumaraStock - weight
@@ -99,7 +99,7 @@ func calculateSummery() {
     let averageWeightPerBag = totalWeight/Double(totalBags)
     let averageEariningPerBag = totalPrice/Double(totalBags)
     
-    print("Average weight sold per bag: \(averageWeightPerBag)")
+    print("Average weight sold per bag: \(averageWeightPerBag) kg.")
     print("Average amount earned per bag: \(averageEariningPerBag)")
     }
 
@@ -140,8 +140,28 @@ func ownerMenu() {
     } while true
 }
 
+func getBags(weight: Double)-> Int {
+print(" Enter bag used: ")
+    // Validate bag count input is a valid interger.
+    guard let input = readLine(), let bags = Int(input) else {
+        print("Invalid number of bags. Please try again.")
+        return getBags(weight: weight)
+    }
+    // Ensure bag count is within the available range.
+    if bags < 1 || bags > maximumBags {
+        print("Number of bags has to be between one and \(maximumBags).")
+        return getBags(weight:weight)
+    } else if bags > bagStock { // Ensure number of bags does not exceed available bags in stock.
+        print("Not enough bags in stock. Only \(bagStock) bags available")
+        return getBags(weight:weight)
+    } else if (weight/Double(bags)) > Double(maxWeightForBag) { // Ensure a bag does not contain more than 5kg of Kumara
+        print("A bag cannot have more than \(maxWeightForBag)kg. You need \(Int((weight/Double(maxWeightForBag)).rounded(.up))) bags.")
+        return getBags(weight:weight)
+    }
+    return bags;
+}
 
-// Custmor functions 
+// Custmor functions.
 
 /// Guides the customer through a purchase by collecting their kumara weight
 /// and number if bags, validating both inputs before proceeding to the sale.
@@ -163,21 +183,11 @@ func customerMenu() {
         print("You can only buy kumara weight between \(minimumKumaraWeight) and \(kumaraStock).")
         return customerMenu()
     }
-    print(" Enter bag used: ")
-    // Validate bag count input is a valid interger.
-    guard let input = readLine(), let bags = Int(input) else {
-        print("Invalid number of bags. Please try agian.")
-        return customerMenu()
-    }
-    // Ensure bag count is within the available stock range.
-    if bags < 1 || bags > bagStock {
-        print("Number of bags has to be between one and \(bagStock).")
-        return customerMenu()
-    }
-    sale(weight:weight, bags:bags)
+    let bags = getBags(weight:weight)
 }
 
-// main menu
+
+// Main menu.
 repeat {
     print(" ==== Welcome to Kumara Shop! ====")
     
