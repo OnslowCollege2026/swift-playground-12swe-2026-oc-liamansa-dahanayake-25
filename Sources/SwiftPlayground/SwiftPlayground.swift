@@ -53,8 +53,12 @@ func sale(weight: Double, bags: Int) {
 /// within acceptable bounds and doesn't exceed the maximum stock capacity.
 func addStock() {
     print("Enter stock amount:")
-    guard let input = readLine(), let stock = Double(input), stock > 0 && stock <= maxStock else {
-        print("Invlid stock, maximum stock amount should be 1 - 50 .")
+    guard let input = readLine(), let  stock = Double(input) else {
+        print("Invalid input.")
+        return addStock()
+    }
+    if stock > 0 && stock <= maxStock{
+        print("Invalid stock, Maximum stock amount should be 1 - 50.")
         return addStock()
     }
     // Check adding the new stock won't exceed the maximum capacity.
@@ -184,7 +188,9 @@ func customerMenu() {
         print("You can only buy kumara weight between \(minimumKumaraWeight) and \(kumaraStock).")
         return customerMenu()
     }
-    let bags = getBags(weight:weight)
+    let bags = getBags(weight:weight);
+
+    sale(weight:weight, bags:bags)
 }
 
 
