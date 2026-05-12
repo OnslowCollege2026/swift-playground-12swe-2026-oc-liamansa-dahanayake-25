@@ -43,9 +43,14 @@ func sale(weight: Double, bags: Int) {
         print("Invalid Input.")
         return sale(weight:weight, bags:bags)
     }
-    kumaraStock = kumaraStock - weight
-    bagStock = bagStock - bags
-    sales.append((weight, bags))
+    if input.uppercased() == "Y" {
+        kumaraStock = kumaraStock - weight
+        bagStock = bagStock - bags
+        sales.append((weight, bags))
+    }else {
+        print("Purchase cancelled.")
+    }
+
 }
 
 // Owner functions.
