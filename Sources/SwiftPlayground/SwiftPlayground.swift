@@ -57,7 +57,7 @@ func addStock() {
         print("Invalid input.")
         return addStock()
     }
-    if stock > 0 && stock <= maxStock{
+    if stock <= 0 || stock > maxStock{
         print("Invalid stock, Maximum stock amount should be 1 - 50.")
         return addStock()
     }
@@ -154,7 +154,7 @@ print(" Enter bag used: ")
     }
     // Ensure bag count is within the available range.
     if bags < 1 || bags > maximumBags {
-        print("Number of bags has to be between one and \(maximumBags).")
+        print("Number of bags has to be between 1 and \(maximumBags).")
         return getBags(weight:weight)
     } else if bags > bagStock { // Ensure number of bags does not exceed available bags in stock.
         print("Not enough bags in stock. Only \(bagStock) bags available")
