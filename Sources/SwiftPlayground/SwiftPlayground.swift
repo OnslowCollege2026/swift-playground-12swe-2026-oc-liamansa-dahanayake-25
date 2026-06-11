@@ -47,13 +47,14 @@ func sale(weight: Double, bags: Int) {
         kumaraStock = kumaraStock - weight
         bagStock = bagStock - bags
         sales.append((weight, bags))
-    }else {
+    } else {
         print("Purchase cancelled.")
     }
 
 }
 
 // Owner functions.
+
 /// Prompts the owner to add kumara stock, validating that the amount if 
 /// within acceptable bounds and doesn't exceed the maximum stock capacity.
 func addStock() {
@@ -113,6 +114,7 @@ func calculateSummery() {
     print("Average amount earned per bag: \(averageEariningPerBag)")
     }
 
+
 /// Displayes the owner menu in a loop, allowing the owner to manage stock, 
 /// view records, and access summeries until they choose to return the mainn menu.
 func ownerMenu() {
@@ -157,14 +159,17 @@ print(" Enter bag used: ")
         print("Invalid number of bags. Please try again.")
         return getBags(weight: weight)
     }
+
     // Ensure bag count is within the available range.
     if bags < 1 || bags > maximumBags {
         print("Number of bags has to be between 1 and \(maximumBags).")
         return getBags(weight:weight)
     } else if bags > bagStock { // Ensure number of bags does not exceed available bags in stock.
+
         print("Not enough bags in stock. Only \(bagStock) bags available")
         return getBags(weight:weight)
     } else if (weight/Double(bags)) > Double(maxWeightForBag) { // Ensure a bag does not contain more than 5kg of Kumara.
+    
         print("A bag cannot have more than \(maxWeightForBag)kg.")
         return getBags(weight:weight)
     }
