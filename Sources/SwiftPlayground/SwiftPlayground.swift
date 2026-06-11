@@ -38,12 +38,13 @@ struct SwiftPlayground {
             let totalCharge = kumaraCharge + bagCharge
             print("Total charge: $ \(totalCharge)")
 
-            // This prompt customer to comfirm or cancel purchase.
+            // Get customer confirmation to purchase.
             print("Do you want to purchase? [Y/N].")
             guard let input = readLine(), input.uppercased() == "Y" || input.uppercased() == "N" else {
                 print("Invalid Input.")
                 return sale(weight:weight, bags:bags)
             }
+            
             // If comfirmed, reduces the stocks and number of bags.
             if input.uppercased() == "Y" {
                 kumaraStock = kumaraStock - weight
@@ -250,7 +251,7 @@ struct SwiftPlayground {
                 ownerMenu()
             } else if choice == 3 {
                 // Exits the program.
-                
+
                 break 
             } else {
                 print("Invalid option. Please try again.")
