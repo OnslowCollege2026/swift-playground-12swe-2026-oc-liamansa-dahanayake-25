@@ -177,10 +177,14 @@ struct SwiftPlayground {
             if bags < 1 || bags > maximumBags {
                 print("Number of bags has to be between 1 and \(maximumBags).")
                 return getBags(weight:weight)
-            } else if bags > bagStock { // Ensure number of bags does not exceed available bags in stock.
+            } else if bags > bagStock { 
+                // Ensure number of bags does not exceed available bags in stock.
+
                 print("Not enough bags in stock. Only \(bagStock) bags available")
                 return getBags(weight:weight)
-            } else if (weight/Double(bags)) > Double(maxWeightForBag) { // Ensure a bag does not contain more than 5kg of Kumara.
+            } else if (weight/Double(bags)) > Double(maxWeightForBag) { 
+                // Ensure a bag does not contain more than 5kg of Kumara.
+
                 print("A bag cannot have more than \(maxWeightForBag)kg.")
                 return getBags(weight:weight)
             }
@@ -245,7 +249,9 @@ struct SwiftPlayground {
             } else if choice == 1 {
                 ownerMenu()
             } else if choice == 3 {
-                break // Exits the program.
+                // Exits the program.
+                
+                break 
             } else {
                 print("Invalid option. Please try again.")
             }
